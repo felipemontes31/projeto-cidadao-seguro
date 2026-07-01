@@ -525,6 +525,31 @@
         dtInput.value = now.toISOString().slice(0, 16);
       }
     });
+    async function carregarSelects() {
+    // Carregar cidadãos
+    const cidadaos = await fetch("/api/cidadaos").then(r => r.json());
+    const selectCidadao = document.getElementById("id_cidadao");
+    cidadaos.forEach(c => {
+        selectCidadao.innerHTML += `<option value="${c.id_cidadao}">${c.nome} - CPF: ${c.cpf}</option>`;
+    });
+
+    // Carregar agentes
+    const agentes = await fetch("/api/agentes").then(r => r.json());
+    const selectAgente = document.getElementById("id_agente");
+    agentes.forEach(a => {
+        selectAgente.innerHTML += `<option value="${a.id_agente}">${a.nome} - Matrícula: ${a.matricula}</option>`;
+    });
+
+    // Carregar bairros
+    const bairros = await fetch("/api/bairros").then(r => r.json());
+    const selectBairro = document.getElementById("id_bairro");
+    bairros.forEach(b => {
+        selectBairro.innerHTML += `<option value="${b.id_bairro}">${b.nome_bairro} (${b.zona})</option>`;
+    });
+    }
+
+
+   window.onload = carregarSelects;
   </script>
 </body>
 </html>
